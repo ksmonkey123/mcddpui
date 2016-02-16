@@ -4,8 +4,7 @@ import ch.waan.mcddpui.structure.ViewData
 import javax.swing.JComponent
 import ch.waan.mcddpui.structure.UIUniverse
 
-trait View[T, -U, V <: ViewData] {
-  def update(data: T, viewData: V): Option[Throwable]
+trait View[-U] {
   def component: JComponent
   def updater: PartialFunction[(U, ViewData), Option[Throwable]]
 }

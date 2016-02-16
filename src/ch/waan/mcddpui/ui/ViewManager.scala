@@ -11,9 +11,9 @@ import ch.waan.mcddpui.structure.RootViewData
 abstract class ViewManager[T] {
 
   protected def showView(id: String): Option[Throwable];
-  protected def addView(view: View[_, T, _ <: ViewData], id: String): Option[Throwable];
+  protected def addView(view: View[T], id: String): Option[Throwable];
 
-  final def registerView(view: View[_, T, _ <: ViewData]) =
+  final def registerView(view: View[T]) =
     if (view == null) Some(new NullPointerException("cannot register [null] view"))
     else {
       val id = UUID.randomUUID.toString
@@ -33,6 +33,6 @@ abstract class ViewManager[T] {
         .flatMap(kf => kf._2.orElse(showView(kf._1)))
     }
 
-  @volatile private[this] var views = HashMap.empty[String, View[_, T, _ <: ViewData]]
+  @volatile private[this] var views = HashMap.empty[String, View[T]]
 
 }
