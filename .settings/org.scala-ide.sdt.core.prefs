@@ -1,0 +1,15 @@
+P=
+Xplugin=
+Xplugin-disable=
+Xplugin-require=
+deprecation=true
+eclipse.preferences.version=1
+explaintypes=true
+feature=true
+g=notailcalls
+optimise=true
+scala.compiler.additionalParams=-language\:implicitConversions
+scala.compiler.installation=2.11
+target=jvm-1.8
+unchecked=true
+useScopesCompiler=false
