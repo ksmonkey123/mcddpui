@@ -18,8 +18,8 @@ class RecordCommandExecutor[T](record: Record[T]) extends CommandExecutor[T] {
 
     @throws(classOf[Throwable])
     override def apply(c: ManagerCommand): Unit = c match {
-        case UndoCommand => record.undo()
-        case RedoCommand => record.redo()
+        case UndoCommand => record.undo
+        case RedoCommand => record.redo
     }
 
 }
