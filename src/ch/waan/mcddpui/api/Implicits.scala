@@ -17,5 +17,4 @@ object Implicits {
     implicit def mutationCommand2function[T, U](c: MutationCommand[T, U]) = c(_)
 
     implicit def voidFunction2BoxedUnitFunction[T](f: T => Unit): T => BoxedUnit = f.andThen(_ => BoxedUnit.UNIT)
-
 }

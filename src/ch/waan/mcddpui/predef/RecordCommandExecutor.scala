@@ -1,12 +1,13 @@
 package ch.waan.mcddpui.predef
 
-import ch.waan.mcddpui.api.Record
 import ch.waan.mcddpui.api.CommandExecutor
-import ch.waan.mcddpui.api.ReadCommand
-import ch.waan.mcddpui.api.MutationCommand
 import ch.waan.mcddpui.api.ManagerCommand
-import ch.waan.mcddpui.api.UndoCommand
-import ch.waan.mcddpui.api.RedoCommand
+import ch.waan.mcddpui.api.ManagerCommand.RedoCommand
+import ch.waan.mcddpui.api.ManagerCommand.UndoCommand
+import ch.waan.mcddpui.api.MutationCommand
+import ch.waan.mcddpui.api.ReadCommand
+import ch.waan.mcddpui.api.Record
+import ch.waan.mcddpui.api.RecordHistoryManipulationException
 
 class RecordCommandExecutor[T](record: Record[T]) extends CommandExecutor[T] {
 

@@ -1,1 +1,4 @@
 /bin/
+/docs/
+.cache
+scaladoc.sh
