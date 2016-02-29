@@ -10,16 +10,21 @@ package ch.waan.mcddpui.api
  * ensuring immutability (or at least apparent immutability) lies in the
  * responsibility of the user.
  *
+ * @note The implicit conversion methods
+ * 			[[Implicits.function2mutationCommand]] and
+ * 			[[Implicits.mutationCommand2function]] can be used to convert
+ * 			freely between types `T => Unit` and `ReadCommand[T]`.
+ *
  * @see [[Command.get[T,U]* Command.get]]
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
- * @version 1.1 (0.1.0), 2016-02-26
+ * @version 1.2 (0.1.0), 2016-02-29
  * @since MCDDPUI 0.1.0
  *
  * @tparam T the input type
  * @tparam U the output type
  */
-trait MutationCommand[T, U] {
+trait MutationCommand[T, U] extends Command {
 
     /**
      * The transformation function for this command.

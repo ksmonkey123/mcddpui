@@ -1,10 +1,14 @@
-package ch.waan.mcddpui.api;
+package ch.waan.mcddpui.predef
 
 import scala.util.control.NonFatal
 import ch.waan.mcddpui.exceptions.ReadCommandExecutionException
 import ch.waan.mcddpui.exceptions.MutationCommandExecutionException
 import ch.waan.mcddpui.exceptions.ManagerCommandExecutionException
 import ch.waan.mcddpui.exceptions.CommandExecutionException
+import ch.waan.mcddpui.api.CommandExecutor
+import ch.waan.mcddpui.api.ManagerCommand
+import ch.waan.mcddpui.api.MutationCommand
+import ch.waan.mcddpui.api.ReadCommand
 
 abstract class ErrorHandlingCommandExecutor[T](executor: CommandExecutor[T]) extends CommandExecutor[T] {
 

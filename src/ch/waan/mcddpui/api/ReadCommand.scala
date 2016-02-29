@@ -10,23 +10,34 @@ package ch.waan.mcddpui.api
  * (potentially) affected resource.
  *
  * @note Immutability of the data structure cannot be enforced. Therefore
- * ensuring immutability (or at least ensuring the lack of any mutating
- * operations on the data structure) lies in the responsibility of the user.
+ * 			ensuring immutability (or at least ensuring the lack of any
+ * 			mutating operations on the data structure) lies in the
+ * 			responsibility of the user.
  *
  * @note The implicit conversion methods [[Implicits.function2readCommand]]
- * and [[Implicits.readCommand2function]] can be used to convert freely
- * between types `T => Unit` and `ReadCommand[T]`.
+ * 			and [[Implicits.readCommand2function]] can be used to convert
+ * 			freely between types `T => Unit` and `ReadCommand[T]`.
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
- * @version 1.1, 2016-02-26
+ * @version 1.2, 2016-02-29
  * @since MCDDPUI 0.1.0
- * @see Implicits
- * 
+ * @see [[Implicits]]
+ *
  * @tparam T the input type for the command
  */
 @FunctionalInterface
-trait ReadCommand[T] {
+trait ReadCommand[T] extends Command {
 
+    /**
+     * The read function for this command.
+     *
+     * @note Immutability of the data structure cannot be enforced.
+     * Therefore ensuring immutability (or at least apparent immutability)
+     * lies in the responsibility of the user.
+     *
+     * @param t the input
+     * @throws Throwable if any exceptional case occurs
+     */
     @throws(classOf[Throwable])
     def apply(t: T): Unit
 
