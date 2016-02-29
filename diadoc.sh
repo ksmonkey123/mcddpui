@@ -1,0 +1,1 @@
+open scaladoc.command

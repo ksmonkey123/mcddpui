@@ -1,4 +1,4 @@
-package ch.waan.mcddpui.api
+package ch.waan.mcddpui.exceptions
 
 import scala.util.control.NonFatal
 

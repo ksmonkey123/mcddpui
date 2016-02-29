@@ -19,7 +19,6 @@ object Command {
     /**
      * Functional Interface variant of the [[MutationCommand]] trait.
      *
-     * @example
      * {{{
      * // Java: use implicitly as lambda
      * MutationCommand<String, String> c = Command.get(s -> s.toUpperCase());
@@ -42,7 +41,7 @@ object Command {
      *
      * @example
      * {{{
-     * // Java: use implicitly as lambda
+     * // Java: use with lambda
      * MutationCommand<String, String> c = Command.get(s -> s.toUpperCase());
      * }}}
      *
@@ -64,11 +63,15 @@ object Command {
 
     /**
      * the instance of the UndoCommand singleton
+     *
+     * @note for scala use [[ManagerCommand.UndoCommand]] directly
      */
     def undoCommand = ManagerCommand.UndoCommand
 
     /**
      * the instance of the RedoCommand singleton
+     *
+     * @note for scala use [[ManagerCommand.RedoCommand]] directly
      */
     def redoCommand = ManagerCommand.RedoCommand
 

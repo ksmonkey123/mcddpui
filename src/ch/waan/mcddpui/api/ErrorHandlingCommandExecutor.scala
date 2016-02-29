@@ -1,6 +1,10 @@
 package ch.waan.mcddpui.api;
 
 import scala.util.control.NonFatal
+import ch.waan.mcddpui.exceptions.ReadCommandExecutionException
+import ch.waan.mcddpui.exceptions.MutationCommandExecutionException
+import ch.waan.mcddpui.exceptions.ManagerCommandExecutionException
+import ch.waan.mcddpui.exceptions.CommandExecutionException
 
 abstract class ErrorHandlingCommandExecutor[T](executor: CommandExecutor[T]) extends CommandExecutor[T] {
 

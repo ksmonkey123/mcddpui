@@ -1,7 +1,7 @@
 package ch.waan.mcddpui.predef
 
 import ch.waan.mcddpui.api.Record
-import ch.waan.mcddpui.api.RecordHistoryManipulationException
+import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
 
 class InfiniteRecord[T](initial: T) extends Record[T] {
 

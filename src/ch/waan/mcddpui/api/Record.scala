@@ -1,5 +1,7 @@
 package ch.waan.mcddpui.api
 
+import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
+
 trait Record[T] {
 
     @throws(classOf[Throwable])

@@ -7,7 +7,7 @@ import ch.waan.mcddpui.api.ManagerCommand.UndoCommand
 import ch.waan.mcddpui.api.MutationCommand
 import ch.waan.mcddpui.api.ReadCommand
 import ch.waan.mcddpui.api.Record
-import ch.waan.mcddpui.api.RecordHistoryManipulationException
+import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
 
 class RecordCommandExecutor[T](record: Record[T]) extends CommandExecutor[T] {
 
