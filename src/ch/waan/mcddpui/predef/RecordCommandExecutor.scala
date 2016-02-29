@@ -7,13 +7,23 @@ import ch.waan.mcddpui.api.ManagerCommand.UndoCommand
 import ch.waan.mcddpui.api.MutationCommand
 import ch.waan.mcddpui.api.ReadCommand
 import ch.waan.mcddpui.api.Record
-import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
-import ch.waan.mcddpui.exceptions.ReadCommandExecutionException
+import ch.waan.mcddpui.exceptions.ManagerCommandExecutionException
 import ch.waan.mcddpui.exceptions.MutationCommandExecutionException
-import ch.waan.mcddpui.exceptions.ManagerCommandExecutionException
+import ch.waan.mcddpui.exceptions.ReadCommandExecutionException
 import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
-import ch.waan.mcddpui.exceptions.ManagerCommandExecutionException
 
+/**
+ * a [[ch.waan.mcddpui.api.CommandExecutor CommandExecutor]] operating on
+ * a [[ch.waan.mcddpui.api.Record Record]]
+ *
+ * @tparam T the data type of the internal data structure of the backing record
+ * @param record the [[ch.waan.mcddpui.api.Record Record]] this executor should operate on
+ * @constructor creates a new executor instance
+ * 
+ * @author Andreas Waelchli <andreas.waelchli@me.com>
+ * @version 1.1 (0.1.0), 2016-02-29
+ * @since MCDDPUI 0.1.0
+ */
 class RecordCommandExecutor[T](record: Record[T]) extends CommandExecutor[T] {
 
     @throws(classOf[ReadCommandExecutionException])

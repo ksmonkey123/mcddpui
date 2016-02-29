@@ -3,6 +3,20 @@ package ch.waan.mcddpui.predef
 import ch.waan.mcddpui.api.Record
 import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
 
+/**
+ * a record with an infinitely long history.
+ *
+ * All operations are synchronized and therefore thread-safe
+ *
+ * @tparam T the data type of the internal data structure
+ *
+ * @constructor creates a new instance
+ * @param initial the initial value for the internal data struture
+ * 
+ * @author Andreas Waelchli <andreas.waelchli@me.com>
+ * @version 1.1 (0.1.0), 2016-02-29
+ * @since MCDDPUI 0.1.0
+ */
 class InfiniteRecord[T](initial: T) extends Record[T] {
 
     private[this] val LOCKER = new Object

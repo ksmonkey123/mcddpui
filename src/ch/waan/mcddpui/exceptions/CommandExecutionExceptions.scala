@@ -1,7 +1,7 @@
 package ch.waan.mcddpui.exceptions
 
 /**
- * an exception that occurred while executing a [[ch.waan.mcddpui.api.Command]].
+ * an exception that occurred while executing a [[ch.waan.mcddpui.api.Command Command]].
  * This exception is always backed by a Throwable.
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
@@ -14,7 +14,7 @@ package ch.waan.mcddpui.exceptions
 class CommandExecutionException(cause: Throwable) extends Exception(cause)
 
 /**
- * an exception that occurred while executing a [[ch.waan.mcddpui.api.ReadCommand]].
+ * an exception that occurred while executing a [[ch.waan.mcddpui.api.ReadCommand ReadCommand]].
  * This exception is always backed by a Throwable.
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
@@ -27,7 +27,7 @@ class CommandExecutionException(cause: Throwable) extends Exception(cause)
 case class ReadCommandExecutionException(cause: Throwable) extends CommandExecutionException(cause)
 
 /**
- * an exception that occurred while executing a [[ch.waan.mcddpui.api.MutationCommand]].
+ * an exception that occurred while executing a [[ch.waan.mcddpui.api.MutationCommand MutationCommand]].
  * This exception is always backed by a Throwable.
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
@@ -40,7 +40,7 @@ case class ReadCommandExecutionException(cause: Throwable) extends CommandExecut
 case class MutationCommandExecutionException(cause: Throwable) extends CommandExecutionException(cause)
 
 /**
- * an exception that occurred while executing a [[ch.waan.mcddpui.api.ManagerCommand]].
+ * an exception that occurred while executing a [[ch.waan.mcddpui.api.ManagerCommand ManagerCommand]].
  * This exception is always backed by a Throwable.
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>

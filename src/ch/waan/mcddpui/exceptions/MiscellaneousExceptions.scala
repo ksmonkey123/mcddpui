@@ -4,7 +4,7 @@ import scala.util.control.NonFatal
 
 /**
  * an exception that occurred while manipulating the history of a
- * [[ch.waan.mcddpui.Record]]
+ * [[ch.waan.mcddpui.Record Record]]
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
  * @version 1.1 (0.1.0), 2016-02-29
