@@ -21,6 +21,7 @@ object Implicits {
     /**
      * converts a scala function into a [[ReadCommand]].
      *
+     * @since MCDDPUI 0.1.0
      * @tparam T the input type of the command
      * @param f the function to be converted into a [[ReadCommand]].
      * 				May not be `null`.
@@ -44,6 +45,7 @@ object Implicits {
     /**
      * converts a [[ReadCommand]] into a scala function.
      *
+     * @since MCDDPUI 0.1.0
      * @tparam T the input type of the command
      * @param c the command to be converted into a function.
      * 				May not be `null`.
@@ -59,6 +61,7 @@ object Implicits {
     /**
      * converts a scala function into a [[MutationCommand]].
      *
+     * @since MCDDPUI 0.1.0
      * @tparam T the input type of the command
      * @tparam U the output type of the command
      * @param f the function to be converted into a [[MutationCommand]].
@@ -83,6 +86,7 @@ object Implicits {
     /**
      * converts a [[MutationCommand]] into a scala function.
      *
+     * @since MCDDPUI 0.1.0
      * @tparam T the input type of the command
      * @tparam U the output type of the command
      * @param c the command to be converted into a function.
