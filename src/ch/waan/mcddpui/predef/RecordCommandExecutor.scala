@@ -8,19 +8,30 @@ import ch.waan.mcddpui.api.MutationCommand
 import ch.waan.mcddpui.api.ReadCommand
 import ch.waan.mcddpui.api.Record
 import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
+import ch.waan.mcddpui.exceptions.ReadCommandExecutionException
+import ch.waan.mcddpui.exceptions.MutationCommandExecutionException
+import ch.waan.mcddpui.exceptions.ManagerCommandExecutionException
+import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
+import ch.waan.mcddpui.exceptions.ManagerCommandExecutionException
 
 class RecordCommandExecutor[T](record: Record[T]) extends CommandExecutor[T] {
 
-    @throws(classOf[Throwable])
+    @throws(classOf[ReadCommandExecutionException])
     override def apply(c: ReadCommand[_ >: T]): Unit = record.view(c)
 
-    @throws(classOf[Throwable])
+    @throws(classOf[MutationCommandExecutionException])
     override def apply(c: MutationCommand[_ >: T, _ <: T]): Unit = record.update(c)
 
-    @throws(classOf[Throwable])
-    override def apply(c: ManagerCommand): Unit = c match {
-        case UndoCommand => record.undo
-        case RedoCommand => record.redo
-    }
+    @throws(classOf[ManagerCommandExecutionException])
+    override def apply(c: ManagerCommand): Unit =
+        try {
+            c match {
+                case UndoCommand => record.undo
+                case RedoCommand => record.redo
+            }
+        } catch {
+            case r: RecordHistoryManipulationException =>
+                throw new ManagerCommandExecutionException(r)
+        }
 
 }

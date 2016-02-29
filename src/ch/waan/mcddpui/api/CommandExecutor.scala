@@ -1,5 +1,9 @@
 package ch.waan.mcddpui.api
 
+import ch.waan.mcddpui.exceptions.ReadCommandExecutionException
+import ch.waan.mcddpui.exceptions.MutationCommandExecutionException
+import ch.waan.mcddpui.exceptions.ManagerCommandExecutionException
+
 /**
  * A handler that accepts commands and executes them.
  *
@@ -32,9 +36,9 @@ trait CommandExecutor[T] {
      * @note $NULLMSG
      * @param c the [[ReadCommand]] to execute.
      * @throws NullPointerException $NPEMSG
-     * @throws Throwable $EXMSG
+     * @throws ReadCommandExecutionException $EXMSG
      */
-    @throws(classOf[Throwable])
+    @throws(classOf[ReadCommandExecutionException])
     def apply(c: ReadCommand[_ >: T]): Unit
 
     /**
@@ -43,9 +47,9 @@ trait CommandExecutor[T] {
      * @note $NULLMSG
      * @param c the [[MutationCommand]] to execute.
      * @throws NullPointerException $NPEMSG
-     * @throws Throwable $EXMSG
+     * @throws MutationCommandExecutionException $EXMSG
      */
-    @throws(classOf[Throwable])
+    @throws(classOf[MutationCommandExecutionException])
     def apply(c: MutationCommand[_ >: T, _ <: T]): Unit
 
     /**
@@ -54,9 +58,9 @@ trait CommandExecutor[T] {
      * @note $NULLMSG
      * @param c the [[ManagerCommand]] to execute.
      * @throws NullPointerException $NPEMSG
-     * @throws Throwable $EXMSG
+     * @throws ManagerCommandExecutionException $EXMSG
      */
-    @throws(classOf[Throwable])
+    @throws(classOf[ManagerCommandExecutionException])
     def apply(c: ManagerCommand): Unit
 
 }

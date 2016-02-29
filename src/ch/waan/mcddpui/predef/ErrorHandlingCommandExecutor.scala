@@ -9,6 +9,8 @@ import ch.waan.mcddpui.api.CommandExecutor
 import ch.waan.mcddpui.api.ManagerCommand
 import ch.waan.mcddpui.api.MutationCommand
 import ch.waan.mcddpui.api.ReadCommand
+import ch.waan.mcddpui.exceptions.MutationCommandExecutionException
+import ch.waan.mcddpui.exceptions.ManagerCommandExecutionException
 
 abstract class ErrorHandlingCommandExecutor[T](executor: CommandExecutor[T]) extends CommandExecutor[T] {
 
@@ -16,21 +18,21 @@ abstract class ErrorHandlingCommandExecutor[T](executor: CommandExecutor[T]) ext
         try {
             executor(c)
         } catch {
-            case NonFatal(e) => handleException(ReadCommandExecutionException(e))
+            case e: CommandExecutionException => handleException(e)
         }
 
     override def apply(c: MutationCommand[_ >: T, _ <: T]): Unit =
         try {
             executor(c)
         } catch {
-            case NonFatal(e) => handleException(MutationCommandExecutionException(e))
+            case e: MutationCommandExecutionException => handleException(e)
         }
 
     override def apply(c: ManagerCommand): Unit =
         try {
             executor(c)
         } catch {
-            case NonFatal(e) => handleException(ManagerCommandExecutionException(e))
+            case e: ManagerCommandExecutionException => handleException(e)
         }
 
     def handleException(ex: CommandExecutionException): Unit;
