@@ -71,8 +71,8 @@ object Implicits {
      * @example
      * {{{
      * import ch.waan.mcddpui.api.Implicits._
-     * val c0: MutationCommand[String, String] => (s: String) => s.toUpperCase
-     * val c1: MutationCommand[String, String] => (_: String).toUpperCase
+     * val c0: MutationCommand[String, String] = (s: String) => s.toUpperCase
+     * val c1: MutationCommand[String, String] = (_: String).toUpperCase
      * }}}
      */
     implicit def function2mutationCommand[T, U](f: T => U): MutationCommand[T, U] =
