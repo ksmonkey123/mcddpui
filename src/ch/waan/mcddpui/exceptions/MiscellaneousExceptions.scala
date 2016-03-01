@@ -7,10 +7,10 @@ import scala.util.control.NonFatal
  * [[ch.waan.mcddpui.Record Record]]
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
- * @version 1.1 (0.1.0), 2016-02-29
+ * @version 1.2 (0.2.0), 2016-03-01
  * @since MCDDPUI 0.1.0
  *
  * @constructor creates a new exception instance
  * @param msg a message describing the exception. May be `null`.
  */
-case class RecordHistoryManipulationException(msg: String) extends Exception(msg)
+case class RecordHistoryManipulationException(msg: String) extends MCDDPUIException(msg = msg)
