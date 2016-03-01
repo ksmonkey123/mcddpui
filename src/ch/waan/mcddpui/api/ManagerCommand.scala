@@ -8,27 +8,48 @@ package ch.waan.mcddpui.api
  * In fact this trait is a pure marker trait without any methods.
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
- * @version 1.1 (0.1.0), 2016-02-29
+ * @version 1.2 (0.2.0), 2016-03-01
  * @since MCDDPUI 0.1.0
  */
-trait ManagerCommand extends Command
+trait ManagerCommand extends CommandLike
 
 /**
  * Collection of predefined manager commands.
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
- * @version 1.1 (0.1.0), 2016-02-29
+ * @version 1.2 (0.2.0), 2016-03-01
  * @since MCDDPUI 0.1.0
  */
+@deprecated("use commands directly", "MCDDPUI 0.2.0")
 object ManagerCommand {
 
     /**
      * a command requesting the executor to undo a mutation
      */
-    case object UndoCommand extends ManagerCommand
+    @deprecated("use ch.waan.mcddpui.api.UndoCommand", "MCDDPUI 0.2.0")
+    def UndoCommand = ch.waan.mcddpui.api.UndoCommand
 
     /**
      * a command requesting the executor to redo a mutation
      */
-    case object RedoCommand extends ManagerCommand
+    @deprecated("use ch.waan.mcddpui.api.RedoCommand", "MCDDPUI 0.2.0")
+    def RedoCommand = ch.waan.mcddpui.api.RedoCommand
 }
+
+/**
+ * a command requesting the executor to undo a mutation
+ *
+ * @author Andreas Waelchli <andreas.waelchli@me.com>
+ * @version 1.1 (0.2.0), 2016-03-01
+ * @since MCDDPUI 0.2.0
+ */
+case object UndoCommand extends ManagerCommand
+
+/**
+ * a command requesting the executor to redo a mutation
+ *
+ * @author Andreas Waelchli <andreas.waelchli@me.com>
+ * @version 1.1 (0.2.0), 2016-03-01
+ * @since MCDDPUI 0.2.0
+ */
+case object RedoCommand extends ManagerCommand

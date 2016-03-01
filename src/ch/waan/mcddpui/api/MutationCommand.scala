@@ -18,13 +18,13 @@ package ch.waan.mcddpui.api
  * @see [[Command.get[T,U]* Command.get]]
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
- * @version 1.2 (0.1.0), 2016-02-29
+ * @version 1.3 (0.2.0), 2016-03-01
  * @since MCDDPUI 0.1.0
  *
  * @tparam T the input type
  * @tparam U the output type
  */
-trait MutationCommand[T, U] extends Command {
+trait MutationCommand[T, U] extends CommandLike {
 
     /**
      * The transformation function for this command.

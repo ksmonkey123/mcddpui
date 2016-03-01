@@ -19,14 +19,14 @@ package ch.waan.mcddpui.api
  * 			freely between types `T => Unit` and `ReadCommand[T]`.
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
- * @version 1.2, 2016-02-29
+ * @version 1.3 (0.2.0), 2016-03-01
  * @since MCDDPUI 0.1.0
  * @see [[Implicits]]
  *
  * @tparam T the input type for the command
  */
 @FunctionalInterface
-trait ReadCommand[T] extends Command {
+trait ReadCommand[T] extends CommandLike {
 
     /**
      * The read function for this command.

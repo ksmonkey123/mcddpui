@@ -2,8 +2,8 @@ package ch.waan.mcddpui.predef
 
 import ch.waan.mcddpui.api.CommandExecutor
 import ch.waan.mcddpui.api.ManagerCommand
-import ch.waan.mcddpui.api.ManagerCommand.RedoCommand
-import ch.waan.mcddpui.api.ManagerCommand.UndoCommand
+import ch.waan.mcddpui.api.RedoCommand
+import ch.waan.mcddpui.api.UndoCommand
 import ch.waan.mcddpui.api.MutationCommand
 import ch.waan.mcddpui.api.ReadCommand
 import ch.waan.mcddpui.api.Record
@@ -19,9 +19,9 @@ import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
  * @tparam T the data type of the internal data structure of the backing record
  * @param record the [[ch.waan.mcddpui.api.Record Record]] this executor should operate on
  * @constructor creates a new executor instance
- * 
+ *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
- * @version 1.1 (0.1.0), 2016-02-29
+ * @version 1.2 (0.2.0), 2016-03-01
  * @since MCDDPUI 0.1.0
  */
 class RecordCommandExecutor[T](record: Record[T]) extends CommandExecutor[T] {

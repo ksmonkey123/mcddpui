@@ -11,7 +11,7 @@ package ch.waan.mcddpui.api
  * @note this object is designed for usage with java
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
- * @version 1.1 (0.1.0), 2016-02-26
+ * @version 1.2 (0.2.0), 2016-03-01
  * @since MCDDPUI 0.1.0
  */
 object Command {
@@ -21,7 +21,7 @@ object Command {
      *
      * {{{
      * // Java: use implicitly as lambda
-     * MutationCommand<String, String> c = Command.get(s -> s.toUpperCase());
+     * MutationCommand<String, String> c = Command$.MODULE$.get(s -> s.toUpperCase());
      * }}}
      *
      * @version 1.1 (0.1.0), 2016-02-26
@@ -42,7 +42,7 @@ object Command {
      * @example
      * {{{
      * // Java: use with lambda
-     * MutationCommand<String, String> c = Command.get(s -> s.toUpperCase());
+     * MutationCommand<String, String> c = Command$.MODULE$.get(s -> s.toUpperCase());
      * }}}
      *
      * @tparam T the input type of the command
@@ -66,22 +66,32 @@ object Command {
      *
      * @note for scala use [[ManagerCommand.UndoCommand]] directly
      */
-    def undoCommand = ManagerCommand.UndoCommand
+    def undoCommand = UndoCommand
 
     /**
      * the instance of the RedoCommand singleton
      *
      * @note for scala use [[ManagerCommand.RedoCommand]] directly
      */
-    def redoCommand = ManagerCommand.RedoCommand
+    def redoCommand = RedoCommand
 
 }
 
 /**
  * Marker Trait for commands.
- * 
+ *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
  * @version 1.1 (0.1.0), 2016-02-29
  * @since MCDDPUI 0.1.0
  */
-trait Command;
+@deprecated("use CommandLike", "MCDDPUI 0.2.0")
+trait Command
+
+/**
+ * Marker Trait for commands.
+ *
+ * @author Andreas Waelchli <andreas.waelchli@me.com>
+ * @version 1.1 (0.2.0), 2016-03-01
+ * @since MCDDPUI 0.2.0
+ */
+trait CommandLike extends Command
