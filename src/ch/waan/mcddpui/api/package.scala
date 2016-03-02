@@ -10,10 +10,46 @@ package ch.waan.mcddpui
  * @version 1.2 (0.2.0), 2016-03-02
  * @since MCDDPUI 0.1.0
  */
+import scala.collection.immutable.HashMap
 package object api {
 
     /**
+     * @usecase def partialFunctionList2PartialFunction[T, U](l: List[PartialFunction[T, U]]): PartialFunction[T, U] = partialFunctionList2PartialFunction(l)
+     *
+     * converts a list of partial functions into a single partial function through
+     * chaining of `orElse`.
+     *
+     * @since MCDDPUI 0.2.0
+     * 
+     * @param l a list of partial functions
+     * @return a single partial function containing all partial functions in the list chained together
+     */
+    implicit def partialFunctionList2PartialFunction[T, U, P <% PartialFunction[T, U]](l: List[P]) =
+        l.foldLeft(PartialFunction.empty[T, U])(_ orElse _)
+
+    /**
+     * converts a view into a partial function defined where the view is applicable
+     * to the [[ViewData]] argument, that applies the inputs to the view and returns
+     * the view.
+     * This allows for chaining all views according to priority and determining which
+     * view was actually used. That view can then be removed from the chain.
+     *
+     * @since MCDDPUI 0.2.0
+     */
+    implicit def view2partialFunction[T](v: View[T]): PartialFunction[(T, ViewData, HashMap[String, String]), View[T]] =
+        new PartialFunction[(T, ViewData, HashMap[String, String]), View[T]] {
+            override def apply(τ: (T, ViewData, HashMap[String, String])) = {
+                v.update(τ._1, τ._2, τ._3)
+                v
+            }
+            override def isDefinedAt(τ: (T, ViewData, HashMap[String, String])) =
+                v.isApplicable(τ._2)
+        }
+
+    /**
      * converts a [[MutationFunction]] instance into a mutation command without a name.
+     *
+     * @since MCDDPUI 0.2.0
      */
     implicit def mutatefunc2command[T, U](f: MutationFunction[T, U]): MutationCommand[T, U] =
         Command.get(f)
