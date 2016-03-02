@@ -97,4 +97,9 @@ package object api {
         else
             c(_)
 
+    implicit def functionNameTuple2mutationCommand[T, U](τ: (T => U, String)): MutationCommand[T, U] = τ match {
+        case null   => throw new NullPointerException
+        case (ƒ, n) => new FunctionMutationCommand(ƒ, n)
+    }
+
 }
