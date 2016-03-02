@@ -11,8 +11,8 @@ package ch.waan.mcddpui.api
  * responsibility of the user.
  *
  * @note The implicit conversion methods
- * 			[[Implicits.function2mutationCommand]] and
- * 			[[Implicits.mutationCommand2function]] can be used to convert
+ * 			[[function2mutationCommand]] and
+ * 			[[mutationCommand2function]] can be used to convert
  * 			freely between types `T => Unit` and `ReadCommand[T]`.
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>

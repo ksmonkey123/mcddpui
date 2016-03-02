@@ -64,14 +64,14 @@ object Command {
     /**
      * the instance of the UndoCommand singleton
      *
-     * @note for scala use [[ManagerCommand.UndoCommand]] directly
+     * @note for scala use [[UndoCommand]] directly
      */
     def undoCommand = UndoCommand
 
     /**
      * the instance of the RedoCommand singleton
      *
-     * @note for scala use [[ManagerCommand.RedoCommand]] directly
+     * @note for scala use [[RedoCommand]] directly
      */
     def redoCommand = RedoCommand
 

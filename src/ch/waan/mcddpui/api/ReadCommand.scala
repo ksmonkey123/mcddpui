@@ -14,14 +14,13 @@ package ch.waan.mcddpui.api
  * 			mutating operations on the data structure) lies in the
  * 			responsibility of the user.
  *
- * @note The implicit conversion methods [[Implicits.function2readCommand]]
- * 			and [[Implicits.readCommand2function]] can be used to convert
+ * @note The implicit conversion methods [[function2readCommand]]
+ * 			and [[readCommand2function]] can be used to convert
  * 			freely between types `T => Unit` and `ReadCommand[T]`.
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
  * @version 1.3 (0.2.0), 2016-03-01
  * @since MCDDPUI 0.1.0
- * @see [[Implicits]]
  *
  * @tparam T the input type for the command
  */
