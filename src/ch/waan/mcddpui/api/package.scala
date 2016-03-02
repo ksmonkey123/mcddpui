@@ -7,6 +7,7 @@ package ch.waan.mcddpui
  * These implicits are all contained in the package object itself.
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
+ * @version 1.2 (0.2.0), 2016-03-02
  * @since MCDDPUI 0.1.0
  */
 package object api {
@@ -97,9 +98,20 @@ package object api {
         else
             c(_)
 
+    /**
+     * converts a tuple with a scala function and a naming string into a [[MutationCommand]].
+     *
+     * @since MCDDPUI 0.2.0
+     * @tparam T the input type of the command
+     * @tparam U the output type of the command
+     * @param τ the tuple containing a function, and a name string
+     * @returns a [[MutationCommand]] based off the function and name provided by τ
+     * @throws NullPointerException if τ is `null` or the function provided through τ is `null`
+     */
     implicit def functionNameTuple2mutationCommand[T, U](τ: (T => U, String)): MutationCommand[T, U] = τ match {
-        case null   => throw new NullPointerException
-        case (ƒ, n) => new FunctionMutationCommand(ƒ, n)
+        case null      => throw new NullPointerException
+        case (null, _) => throw new NullPointerException
+        case (ƒ, n)    => new FunctionMutationCommand(ƒ, n)
     }
 
 }
