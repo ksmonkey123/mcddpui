@@ -9,4 +9,9 @@ package ch.waan.mcddpui
  * @author Andreas Waelchli <andreas.waelchli@me.com>
  * @since MCDDPUI 0.1.0
  */
-package object api
+package object api {
+
+    implicit def mutatefunc2command[T, U](f: MutationFunction[T, U]): MutationCommand[T, U] =
+        Command.get(f)
+
+}

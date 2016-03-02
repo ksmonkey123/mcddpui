@@ -17,32 +17,38 @@ package ch.waan.mcddpui.api
 object Command {
 
     /**
-     * Functional Interface variant of the [[MutationCommand]] trait.
-     *
-     * {{{
-     * // Java: use implicitly as lambda
-     * MutationCommand<String, String> c = Command$.MODULE$.get(s -> s.toUpperCase());
-     * }}}
-     *
-     * @version 1.1 (0.1.0), 2016-02-26
-     * @since MCDDPUI 0.1.0
-     */
-    @FunctionalInterface
-    trait MutationFunction[T, U] {
-        /**
-         * @see [[MutationCommand.apply]]
-         */
-        @throws(classOf[Throwable])
-        def apply(t: T): U
-    }
-
-    /**
-     * creates a [[MutationCommand]] - compatible to java lambdas.
+     * creates a [[MutationCommand]] with a defined name - compatible to java lambdas.
      *
      * @example
      * {{{
      * // Java: use with lambda
-     * MutationCommand<String, String> c = Command$.MODULE$.get(s -> s.toUpperCase());
+     * MutationCommand<String, String> c = Command.get(s -> s.toUpperCase(), "toUpperCase");
+     * }}}
+     *
+     * @tparam T the input type of the command
+     * @tparam U the output type of the command
+     * @param f the [[MutationFunction]] instance to be converted to
+     * 				a [[MutationCommand]]. That trait is compatible
+     * 				with java lambdas. May not be `null`.
+     * @param name the name of the command. May be `null`.
+     * @return a [[MutationCommand]] based off the the function `f`
+     * @throws NullPointerException if `f` is `null`
+     */
+    def get[T, U](f: MutationFunction[T, U], name: String): MutationCommand[T, U] =
+        if (f == null)
+            throw new NullPointerException
+        else
+            new LambdaMutationCommand(f, name)
+
+    /**
+     * creates a nameless [[MutationCommand]] - compatible to java lambdas.
+     *
+     * equivalent to `Command.get(f, null)`
+     *
+     * @example
+     * {{{
+     * // Java: use with lambda
+     * MutationCommand<String, String> c = Command.get(s -> s.toUpperCase());
      * }}}
      *
      * @tparam T the input type of the command
@@ -53,13 +59,7 @@ object Command {
      * @return a [[MutationCommand]] based off the the function `f`
      * @throws NullPointerException if `f` is `null`
      */
-    def get[T, U](f: MutationFunction[T, U]): MutationCommand[T, U] =
-        if (f == null)
-            throw new NullPointerException
-        else
-            new MutationCommand[T, U] {
-                override def apply(t: T) = f(t)
-            }
+    def get[T, U](f: MutationFunction[T, U]): MutationCommand[T, U] = get(f, null)
 
     /**
      * the instance of the UndoCommand singleton
@@ -75,6 +75,28 @@ object Command {
      */
     def redoCommand = RedoCommand
 
+}
+
+/**
+ * Functional Interface variant of the [[MutationCommand]] trait.
+ *
+ * {{{
+ * // Java: use implicitly as lambda with name
+ * MutationCommand<String, String> c0 = Command.get(s -> s.toUpperCase(), "toUpperCase");
+ * // Java: use implicitly as lambda without name. Name will be null by default
+ * MutationCommand<String, String> c1 = Command.get(s -> s.toUpperCase());
+ * }}}
+ *
+ * @version 1.1 (0.1.0), 2016-02-26
+ * @since MCDDPUI 0.1.0
+ */
+@FunctionalInterface
+trait MutationFunction[T, U] {
+    /**
+     * @see [[MutationCommand.apply]]
+     */
+    @throws(classOf[Throwable])
+    def apply(t: T): U
 }
 
 /**

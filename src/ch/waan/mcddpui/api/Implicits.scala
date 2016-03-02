@@ -18,6 +18,7 @@ import scala.runtime.BoxedUnit
  */
 object Implicits {
 
+
     /**
      * converts a scala function into a [[ReadCommand]].
      *
@@ -79,9 +80,7 @@ object Implicits {
         if (f == null)
             throw new NullPointerException
         else
-            new MutationCommand[T, U] {
-                override def apply(t: T) = f(t)
-            }
+            new FunctionMutationCommand(f)
 
     /**
      * converts a [[MutationCommand]] into a scala function.
