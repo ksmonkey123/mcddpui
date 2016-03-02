@@ -88,7 +88,7 @@ final class ViewManager[T](executor: CommandExecutor[UIUniverse[T]]) {
             case (_, null) => // drop it
             case (d, v) =>
                 v update (u.data, d, u.ui.props)
-                v bind executor
+                v bind new ViewCommandExecutor(executor, v)
         }
         assignedViews.headOption.filter(_.isPacked).foreach(_.unpack)
         assignedViews
