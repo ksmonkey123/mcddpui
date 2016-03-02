@@ -13,7 +13,7 @@ import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
  * @tparam T the type of the encapsulated data structure
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
- * @version 1.1 (0.1.0), 2016-02-29
+ * @version 1.2 (0.2.0), 2016-03-02
  * @since MCDDPUI 0.1.0
  */
 trait Record[T] {
@@ -25,7 +25,7 @@ trait Record[T] {
      * @throws Throwable if any exceptional condition occurs during
      * 						command execution
      */
-    @throws(classOf[Throwable])
+    @throws[Throwable]
     def view(c: ReadCommand[_ >: T]): Unit
 
     /**
@@ -35,7 +35,7 @@ trait Record[T] {
      * @throws Throwable if any exceptional condition occurs during
      * 						command execution
      */
-    @throws(classOf[Throwable])
+    @throws[Throwable]
     def update(c: MutationCommand[_ >: T, _ <: T]): Unit
 
     /**
@@ -43,15 +43,26 @@ trait Record[T] {
      *
      * @throws RecordHistoryManipulationException if the undo failed
      */
-    @throws(classOf[RecordHistoryManipulationException])
+    @throws[RecordHistoryManipulationException]
     def undo: Unit
 
     /**
-     * redoes the last modification undone
+     * redoes the along a given path
      *
+     * @param index the index of the redo path
      * @throws RecordHistoryManipulationException if the redo failed
+     * @throws IndexOutOfBoundsException if the redo path index is out of bounds
      */
-    @throws(classOf[RecordHistoryManipulationException])
-    def redo: Unit
+
+    @throws[RecordHistoryManipulationException]
+    @throws[IndexOutOfBoundsException]
+    def redo(index: Int): Unit
+
+    /**
+     * lists all possible redo paths in order
+     *
+     * @return a list containing the names for all possible redo paths
+     */
+    def listRedoPaths: List[String]
 
 }

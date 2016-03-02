@@ -11,7 +11,7 @@ package ch.waan.mcddpui.api
  * @note this object is designed for usage with java
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
- * @version 1.2 (0.2.0), 2016-03-01
+ * @version 1.3 (0.2.0), 2016-03-02
  * @since MCDDPUI 0.1.0
  */
 object Command {
@@ -72,8 +72,10 @@ object Command {
      * the instance of the RedoCommand singleton
      *
      * @note for scala use [[RedoCommand]] directly
+     *
+     * @param index the redo path index
      */
-    def redoCommand = RedoCommand
+    def redoCommand(index: Int) = RedoCommand(index)
 
 }
 

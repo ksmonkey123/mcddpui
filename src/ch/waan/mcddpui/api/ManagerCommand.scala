@@ -28,5 +28,7 @@ case object UndoCommand extends ManagerCommand
  * @author Andreas Waelchli <andreas.waelchli@me.com>
  * @version 1.1 (0.2.0), 2016-03-01
  * @since MCDDPUI 0.2.0
+ *
+ * @param index the index of the desired redo path
  */
-case object RedoCommand extends ManagerCommand
+case class RedoCommand(index: Int) extends ManagerCommand

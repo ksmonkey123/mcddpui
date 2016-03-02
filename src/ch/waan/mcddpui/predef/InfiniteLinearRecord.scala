@@ -4,7 +4,7 @@ import ch.waan.mcddpui.api.Record
 import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
 
 /**
- * a record with an infinitely long history.
+ * a record with an infinitely long history that only supports a single redo path.
  *
  * All operations are synchronized and therefore thread-safe
  *
@@ -12,23 +12,23 @@ import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
  *
  * @constructor creates a new instance
  * @param initial the initial value for the internal data struture
- * 
+ *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
  * @version 1.1 (0.1.0), 2016-02-29
  * @since MCDDPUI 0.1.0
  */
-class InfiniteRecord[T](initial: T) extends Record[T] {
+class InfiniteLinearRecord[T](initial: T) extends Record[T] {
 
     private[this] val LOCKER = new Object
-    private[this] var history = List(initial)
-    private[this] var redoStack: List[T] = Nil
+    private[this] var history = List[(String, T)]((null, initial))
+    private[this] var redoStack: List[(String, T)] = Nil
 
     override def view(f: ch.waan.mcddpui.api.ReadCommand[_ >: T]): Unit =
-        f(history.head)
+        f(history.head._2)
 
     override def update(f: ch.waan.mcddpui.api.MutationCommand[_ >: T, _ <: T]): Unit = LOCKER synchronized {
-        val next = f(history.head)
-        history ::= next
+        val next = f(history.head._2)
+        history ::= f.name -> next
         redoStack = Nil
     }
 
@@ -39,11 +39,15 @@ class InfiniteRecord[T](initial: T) extends Record[T] {
         history = history.tail
     }
 
-    override def redo(): Unit = LOCKER synchronized {
+    override def redo(index: Int): Unit = LOCKER synchronized {
         if (redoStack.isEmpty)
             throw new RecordHistoryManipulationException("cannot redo")
+        if ((index < 0) || (index >= redoStack.size))
+            throw new IndexOutOfBoundsException(s"index out of bounds: $index with bounds [0, ${redoStack.size - 1}]")
         history ::= redoStack.head
         redoStack = redoStack.tail
     }
+
+    override def listRedoPaths = redoStack.map(_._1)
 
 }

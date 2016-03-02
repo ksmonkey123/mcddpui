@@ -36,10 +36,12 @@ class RecordCommandExecutor[T](record: Record[T]) extends CommandExecutor[T] {
     override def apply(c: ManagerCommand): Unit =
         try {
             c match {
-                case UndoCommand => record.undo
-                case RedoCommand => record.redo
+                case UndoCommand    => record.undo
+                case RedoCommand(i) => record.redo(i)
             }
         } catch {
+            case i: IndexOutOfBoundsException =>
+                throw new ManagerCommandExecutionException(i)
             case r: RecordHistoryManipulationException =>
                 throw new ManagerCommandExecutionException(r)
         }
