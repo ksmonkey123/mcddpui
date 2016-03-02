@@ -81,17 +81,7 @@ object Command {
  * Marker Trait for commands.
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
- * @version 1.1 (0.1.0), 2016-02-29
- * @since MCDDPUI 0.1.0
- */
-@deprecated("use CommandLike", "MCDDPUI 0.2.0")
-trait Command
-
-/**
- * Marker Trait for commands.
- *
- * @author Andreas Waelchli <andreas.waelchli@me.com>
  * @version 1.1 (0.2.0), 2016-03-01
  * @since MCDDPUI 0.2.0
  */
-trait CommandLike extends Command
+trait CommandLike
