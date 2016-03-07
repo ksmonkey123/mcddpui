@@ -43,7 +43,7 @@ class InfiniteLinearRecord[T](initial: T) extends Record[T] {
         if (redoStack.isEmpty)
             throw new RecordHistoryManipulationException("cannot redo")
         if ((index < 0) || (index >= redoStack.size))
-            throw new IndexOutOfBoundsException(s"index out of bounds: $index with bounds [0, ${redoStack.size - 1}]")
+            throw new IndexOutOfBoundsException(s"index out of bounds: $index != 0]")
         history ::= redoStack.head
         redoStack = redoStack.tail
     }
