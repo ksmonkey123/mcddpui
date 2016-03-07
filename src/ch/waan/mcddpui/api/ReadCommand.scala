@@ -31,8 +31,8 @@ trait ReadCommand[T] extends CommandLike {
      * The read function for this command.
      *
      * @note Immutability of the data structure cannot be enforced.
-     * Therefore ensuring immutability (or at least apparent immutability)
-     * lies in the responsibility of the user.
+     * 			Therefore ensuring immutability (or at least apparent
+     * 			immutability) lies in the responsibility of the user.
      *
      * @param t the input
      * @throws Throwable if any exceptional case occurs

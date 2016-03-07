@@ -12,7 +12,7 @@ import ch.waan.mcddpui.exceptions.ManagerCommandExecutionException
  * @since MCDDPUI 0.1.0
  *
  * @tparam T the type of the data structure the executor
- * 				operates on
+ * 					operates on
  *
  * @define NULLMSG The implementation may decide whether or not `null`
  * 					commands should be allowed. If `null` commands are
