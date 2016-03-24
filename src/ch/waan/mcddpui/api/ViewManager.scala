@@ -1,14 +1,15 @@
 package ch.waan.mcddpui.api
 
-import scala.collection.immutable.HashMap
 import scala.annotation.tailrec
 import scala.collection.immutable.Nil
+import ch.waan.mcddpui.exceptions.ViewUpdateException
+import java.util.Objects
 
 /**
  * core view life-cycle management
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
- * @version 1.1 (0.2.0), 2016-03-02
+ * @version 1.2 (0.3.0), 2016-03-24
  * @since MCDDPUI 0.2.0
  *
  * @tparam T the type of the data structure
@@ -20,8 +21,9 @@ import scala.collection.immutable.Nil
  * @see [[View]] for full life-cycle documentation
  */
 @throws[NullPointerException]
-final class ViewManager[T](executor: CommandExecutor[UIUniverse[T]]) {
-
+final class ViewManager[T](executor: CommandExecutor[UIUniverse[T]]) extends ViewManagerLike[T] {
+    Objects.requireNonNull(executor)
+    
     @volatile private var views: List[View[T]] = List.empty
     private val LOCK = new Object
 
@@ -37,7 +39,7 @@ final class ViewManager[T](executor: CommandExecutor[UIUniverse[T]]) {
      */
     @throws[NullPointerException]
     @throws[IllegalArgumentException]
-    def register(view: View[T]) =
+    override def register(view: View[T]) =
         if (view == null) throw new NullPointerException
         else if (view.isBound) throw new IllegalArgumentException("view may not be bound")
         else if (!view.isPacked) throw new IllegalArgumentException("view must be packed")
@@ -57,7 +59,7 @@ final class ViewManager[T](executor: CommandExecutor[UIUniverse[T]]) {
      */
     @throws[NullPointerException]
     @throws[IllegalArgumentException]
-    def update(u: UIUniverse[T]): List[View[T]] = LOCK synchronized {
+    override def update(u: UIUniverse[T]): List[View[T]] = LOCK synchronized {
 
             @tailrec
             def assign(items: List[ViewData], views: List[View[T]], acc: List[(ViewData, View[T])]): List[(ViewData, View[T])] =
