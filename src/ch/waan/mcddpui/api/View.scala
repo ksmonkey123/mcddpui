@@ -24,10 +24,10 @@ import scala.collection.immutable.HashMap
  * with the view is allowed. An inactive view may therefore never dispatch any commands
  * - even when bound. There is however one exception to this rule:
  *  - Since only one view can be active at once, unfocused frames in a multi-frame UI are
- *      unpacked. A view in an unfocused frame may request focus when clicked on. This
- *      is necessary to be able to keep the data structure synchronized with the UI. For
- *      this use the command [[TargetFocusRequestCommand]] is provided. This is the
- *      only command that may be issued from an inactive view.
+ *      packed. A view in an unfocused frame may request focus when clicked on. This is
+ *      necessary to be able to keep the data structure synchronized with the UI. For this
+ *      use the command [[TargetFocusRequestCommand]] is provided. This is the only command
+ *      that may be issued from an inactive view.
  *
  * === Transitions ===
  *  1. When starting the application, all views should be constructed and initialized
