@@ -6,53 +6,50 @@ import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
 
 class InfiniteBranchedRecord[T](initial: T) extends Record[T] {
 
-    private case class CONS(name: String, head: T, tail: CONS, branches: List[CONS]) {
-        def ::(t: (String, T)) = CONS(t._1, t._2, this, List.empty)
-        def ::(t: (String, T, List[CONS])) = CONS(t._1, t._2, this, t._3)
-        def data = (name, head, branches)
-    }
+    private case class Cell(name: String, state: T, branches: List[List[Cell]])
 
     private[this] val LOCKER = new Object
-    private[this] var history = CONS(null, initial, null, List.empty)
-    private[this] var redo = null: CONS
+    private[this] var history = List(Cell(null, initial, Nil))
+    private[this] var redo = Nil: List[Cell]
 
     override def view(f: ch.waan.mcddpui.api.ReadCommand[_ >: T]): Unit =
-        f(history.head)
+        f(history.head.state)
 
     override def update(c: MutationCommand[_ >: T, _ <: T]): Unit = LOCKER synchronized {
-        val next = c(history.head)
-        if (redo == null)
-            history ::= (c.name, next)
+        val next = Cell(c.name, c(history.head.state), Nil)
+        if (redo.isEmpty)
+            history ::= next
         else {
-            history = (c.name, next) :: (history.name, history.head, redo :: history.branches) :: history.tail
-            redo = null
+            history = next :: history.head.copy(branches = redo :: history.head.branches) :: history.tail
+            redo = Nil
         }
     }
 
     override def undo(): Unit = LOCKER synchronized {
-        if (history.tail == null)
+        if (history.tail.isEmpty)
             throw new RecordHistoryManipulationException("cannot undo. History is empty")
-        redo ::= history.data
+        redo ::= history.head
         history = history.tail
     }
 
     override def listRedoPaths: List[String] =
-        if (redo == null)
+        if (redo.isEmpty)
             List.empty
         else
-            redo.name :: history.branches.map(_.name)
+            redo.head.name :: history.head.branches.map(_.head.name)
 
     override def redo(index: Int) = LOCKER synchronized {
-        if (redo == null)
+        if (redo.isEmpty)
             throw new RecordHistoryManipulationException("cannot redo")
-        if ((index < 0) || (index > history.branches.size))
-            throw new IndexOutOfBoundsException(s"index out of bounds: $index range: [0, ${history.branches.size}]")
+        if ((index < 0) || (index > history.head.branches.size))
+            throw new IndexOutOfBoundsException(s"index out of bounds: $index range: [0, ${history.head.branches.size}]")
         if (index == 0) {
-            history ::= redo.data
+            history ::= redo.head
             redo = redo.tail
         } else {
-            val theRedo = history.branches(index - 1)
-            history ::= (theRedo.name, theRedo.head, redo :: (history.branches.slice(0, index - 1) ::: history.branches.drop(index)))
+            val theRedo = history.head.branches(index - 1)
+            val redos = redo :: history.head.branches.slice(0, index - 1) ::: history.head.branches.drop(index)
+            history = theRedo.head :: history.head.copy(branches = redos) :: history.tail
             redo = theRedo.tail
         }
     }
