@@ -16,7 +16,7 @@ import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
  * @version 1.2 (0.2.0), 2016-03-02
  * @since MCDDPUI 0.1.0
  */
-trait Record[T] {
+trait Record[T] extends Serializable {
 
     /**
      * passes the internal data structure to the [[ReadCommand]]

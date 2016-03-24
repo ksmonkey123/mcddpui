@@ -4,11 +4,12 @@ import ch.waan.mcddpui.api.Record
 import ch.waan.mcddpui.api.MutationCommand
 import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
 
+@SerialVersionUID(0L)
 class InfiniteBranchedRecord[T](initial: T) extends Record[T] {
 
     private case class Cell(name: String, state: T, branches: List[List[Cell]])
 
-    private[this] val LOCKER = new Object
+    @transient private[this] val LOCKER = new Object
     private[this] var history = List(Cell(null, initial, Nil))
     private[this] var redo = Nil: List[Cell]
 
@@ -53,4 +54,5 @@ class InfiniteBranchedRecord[T](initial: T) extends Record[T] {
             redo = theRedo.tail
         }
     }
+
 }

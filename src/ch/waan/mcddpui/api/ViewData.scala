@@ -13,4 +13,4 @@ package ch.waan.mcddpui.api
  * @version 1.1 (0.1.0), 2016-02-29
  * @since MCDDPUI 0.1.0
  */
-trait ViewData
+trait ViewData extends Serializable

@@ -17,6 +17,7 @@ import scala.collection.immutable.HashMap
  * 				layered. (opaque layers!).
  * @param props a hash map containing global UI properties
  */
+@SerialVersionUID(0L)
 case class UIData(
     viewStack: List[ViewData],
     props: HashMap[String, String] = HashMap.empty)

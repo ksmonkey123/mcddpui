@@ -17,9 +17,10 @@ import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
  * @version 1.1 (0.1.0), 2016-02-29
  * @since MCDDPUI 0.1.0
  */
+@SerialVersionUID(0L)
 class InfiniteLinearRecord[T](initial: T) extends Record[T] {
 
-    private[this] val LOCKER = new Object
+    @transient private[this] val LOCKER = new Object
     private[this] var history = List[(String, T)]((null, initial))
     private[this] var redoStack: List[(String, T)] = Nil
 

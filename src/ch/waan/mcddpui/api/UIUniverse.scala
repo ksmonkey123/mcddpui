@@ -16,4 +16,5 @@ package ch.waan.mcddpui.api
  * @param data the operational data
  * @param ui the UI state representation
  */
+@SerialVersionUID(0L)
 case class UIUniverse[T](data: T, ui: UIData)
