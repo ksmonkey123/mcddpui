@@ -2,7 +2,9 @@ MCDDPUI
 =======
 _Modular Command-Driven Data Processing UI Library_
 
-Current Version: 0.3.0
+Current Version:
+  - Dev: 0.3.0
+  - Stable: 0.2.0
 
 Useful links:
   - For ScalaDoc see the [github page](http://ksmonkey123.github.io/mcddpui)
