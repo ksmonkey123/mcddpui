@@ -25,12 +25,12 @@ import scala.collection.immutable.HashMap
  * - even when bound. There is however one exception to this rule:
  *  - Since only one view can be active at once, unfocused frames in a multi-frame UI are
  *      packed. A view in an unfocused frame may request focus when clicked on. This is
- *      necessary to be able to keep the data structure synchronized with the UI. For this
+ *      necessary to be able to keep the data structure synchronised with the UI. For this
  *      use the command [[TargetFocusRequestCommand]] is provided. This is the only command
  *      that may be issued from an inactive view.
  *
  * === Transitions ===
- *  1. When starting the application, all views should be constructed and initialized
+ *  1. When starting the application, all views should be constructed and initialised
  * 			as far as possible. After startup all views should be '''packed''' and
  * 			'''unbound'''
  * 	1. When a view enters the view stack, it is '''bound''' but remains '''packed'''
@@ -46,7 +46,7 @@ import scala.collection.immutable.HashMap
  *
  * The update cycle operates according to a simple procedure:
  *  1. Try to assign a view to every entry in the view stack. Entries near the head of the
- *  		view stack are prioritized, and views are prioritized in the order they were registered.
+ *  		view stack are prioritised, and views are prioritised in the order they were registered.
  *  1. Assert that the top-most entry of the view stack has a view assigned.
  *  1. Pack the view that was previously assigned to the top-most entry of the stack if it
  *  		it is not again assigned to the top-most element.

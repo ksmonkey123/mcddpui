@@ -2,7 +2,7 @@ package ch.waan.mcddpui.api
 
 /**
  * A manager command is a command targeted at a [[CommandExecutor]]
- * to influence the internal behavior of the executor.
+ * to influence the internal behaviour of the executor.
  *
  * They are not targeted at modification of the internal data structure.
  * In fact this trait is a pure marker trait without any methods.

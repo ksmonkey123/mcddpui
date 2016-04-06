@@ -7,17 +7,46 @@ import ch.waan.mcddpui.api.UIUniverse
 import ch.waan.mcddpui.api.View
 import java.util.Objects
 
-abstract class PanelView[T](window: ViewWindow[T], val uuid: UUID = UUID.randomUUID()) extends View[T] {
+/**
+ * Abstract [[View]] implementation for views associated with a [[ViewWindow]].
+ * The base implementation handles (un)binding, (un)packing and making the view
+ * visible in the window.
+ *
+ * A concrete implementation must provide the root UI component of the view through
+ * the `component` method.
+ *
+ * The `executor` potentially bound to this view is marked as implicit. This is done
+ * in preparation for the planned integration of prebuilt UI components with direct
+ * command integration.
+ *
+ * @tparam T the data type of the data structure
+ * 
+ * @param window the window this view will be registered to. The registering must be
+ * 			handled externally. The provided `window` will be used when requesting
+ * 			this view to be displayed. May not be `null`
+ * @param uuid the unique identifier for this view. Defaults to a randomly generated
+ * 			identifier. May not be `null`
+ *
+ * @throws NullPointerException if any parameter is `null`
+ *
+ * @author Andreas Waelchli <andreas.waelchli@me.com>
+ * @version 1.1 (0.3.1), 2016-04-06
+ * @since MCDDPUI 0.3.1
+ */
+abstract class PanelView[T](window: ViewWindow, val uuid: UUID = UUID.randomUUID()) extends View[T] {
     type Executor = CommandExecutor[UIUniverse[T]]
 
     Objects.requireNonNull(window)
     Objects.requireNonNull(uuid)
 
+    /**
+     * The root component of this view
+     */
     def component: Container
 
     private[this] var bound = false
     private[this] var packed = true
-    protected var executor: Executor = null
+    implicit protected var executor: Executor = null
 
     override def isBound = bound
     override def isPacked = packed

@@ -16,7 +16,7 @@ package ch.waan.mcddpui.api
  * 			freely between types `T => Unit` and `ReadCommand[T]`.
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
- * @version 1.3 (0.2.0), 2016-03-01
+ * @version 1.4 (0.3.1), 2016-04-06
  * @since MCDDPUI 0.1.0
  *
  * @tparam T the input type
@@ -64,11 +64,7 @@ trait MutationCommand[T, U] extends CommandLike {
      */
     def andThen[V](g: MutationCommand[_ >: U, V]): MutationCommand[T, V] = {
         if (g == null) throw new NullPointerException
-        val f = this
-        new MutationCommand[T, V] {
-            override def apply(t: T): V = g(f(t))
-            override def name = ???
-        }
+        new ComposedMutationCommand[T, U, V](this, g)
     }
 
 }

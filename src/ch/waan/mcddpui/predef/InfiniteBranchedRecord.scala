@@ -7,7 +7,7 @@ import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
 /**
  * a record with an infinitely long history that supports an arbitrary number of branching redo paths.
  * 
- * All operations are synchronized and therefore thread-safe
+ * All operations are synchronised and therefore thread-safe
  * 
  * @tparam T the data type of the internal data structure
  * 

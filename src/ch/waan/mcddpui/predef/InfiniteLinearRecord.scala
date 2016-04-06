@@ -6,12 +6,12 @@ import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
 /**
  * a record with an infinitely long history that only supports a single redo path.
  *
- * All operations are synchronized and therefore thread-safe
+ * All operations are synchronised and therefore thread-safe
  *
  * @tparam T the data type of the internal data structure
  *
  * @constructor creates a new instance
- * @param initial the initial value for the internal data struture
+ * @param initial the initial value for the internal data structure
  *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
  * @version 1.1 (0.1.0), 2016-02-29
