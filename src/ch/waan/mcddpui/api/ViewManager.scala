@@ -23,7 +23,7 @@ import java.util.Objects
 @throws[NullPointerException]
 final class ViewManager[T](executor: CommandExecutor[UIUniverse[T]]) extends ViewManagerLike[T] {
     Objects.requireNonNull(executor)
-    
+
     @volatile private var views: List[View[T]] = List.empty
     private val LOCK = new Object
 
@@ -86,13 +86,13 @@ final class ViewManager[T](executor: CommandExecutor[UIUniverse[T]]) extends Vie
         assignedViews.tail.foreach(x => {
             if (!x.isPacked) x.pack
         })
+        assignedViews.headOption.filter(_.isPacked).foreach(_.unpack)
         assignments.foreach {
             case (_, null) => // drop it
             case (d, v) =>
+                if (!v.isBound) v bind new ViewCommandExecutor(executor, v)
                 v update (u.data, d, u.ui.props)
-                v bind new ViewCommandExecutor(executor, v)
         }
-        assignedViews.headOption.filter(_.isPacked).foreach(_.unpack)
         assignedViews
     }
 

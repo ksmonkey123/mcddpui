@@ -20,7 +20,7 @@ import java.util.Objects
  * command integration.
  *
  * @tparam T the data type of the data structure
- * 
+ *
  * @param window the window this view will be registered to. The registering must be
  * 			handled externally. The provided `window` will be used when requesting
  * 			this view to be displayed. May not be `null`
@@ -46,7 +46,9 @@ abstract class PanelView[T](window: ViewWindow, val uuid: UUID = UUID.randomUUID
 
     private[this] var bound = false
     private[this] var packed = true
-    implicit protected var executor: Executor = null
+    private[this] var exec: Executor = null
+
+    implicit protected val executor = () => exec
 
     override def isBound = bound
     override def isPacked = packed
@@ -56,14 +58,14 @@ abstract class PanelView[T](window: ViewWindow, val uuid: UUID = UUID.randomUUID
     override def bind(ex: Executor): Unit = synchronized {
         if (bound) throw new IllegalStateException
         if (ex == null) throw new NullPointerException
-        executor = ex
+        exec = ex
         bound = true
     }
 
     @throws[IllegalStateException]
     override def unbind: Unit = synchronized {
         if (!bound) throw new IllegalStateException
-        executor = null
+        exec = null
         bound = false
     }
 
