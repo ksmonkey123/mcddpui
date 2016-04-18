@@ -1,4 +1,4 @@
-package ch.waan.ksprec.ui
+package ch.waan.mcddpui.ui
 
 import FunctionalAction.Implicit.bodyToFunction
 import ch.waan.mcddpui.api.CommandExecutor

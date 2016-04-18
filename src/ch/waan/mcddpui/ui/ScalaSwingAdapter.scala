@@ -1,4 +1,4 @@
-package ch.waan.ksprec.ui
+package ch.waan.mcddpui.ui
 
 import javax.swing.JComponent
 import javax.swing.text.JTextComponent
