@@ -1,5 +1,7 @@
 package ch.waan.mcddpui.api
 
+import java.util.function.Function
+
 /**
  * data structure root node for UI applications.
  *
@@ -17,4 +19,12 @@ package ch.waan.mcddpui.api
  * @param ui the UI state representation
  */
 @SerialVersionUID(0L)
-case class UIUniverse[T](data: T, ui: UIData)
+case class UIUniverse[T](data: T, ui: UIData) {
+
+    def updateData(ƒ: T => T) = UIUniverse(ƒ(data), ui)
+    def updateData(λ: Function[T, T]) = UIUniverse(λ(data), ui)
+
+    def updateUI(ƒ: UIData => UIData) = UIUniverse(data, ƒ(ui))
+    def updateUI(λ: Function[UIData, UIData]) = UIUniverse(data, λ(ui))
+
+}

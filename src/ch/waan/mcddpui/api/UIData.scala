@@ -1,6 +1,7 @@
 package ch.waan.mcddpui.api
 
 import scala.collection.immutable.HashMap
+import java.util.function.Function
 
 /**
  * root object for the structural representation of the
@@ -19,5 +20,13 @@ import scala.collection.immutable.HashMap
  */
 @SerialVersionUID(0L)
 case class UIData(
-    viewStack: List[ViewData],
-    props: HashMap[String, String] = HashMap.empty)
+        viewStack: List[ViewData],
+        props: HashMap[String, String] = HashMap.empty) {
+
+    def updateViewStack(ƒ: List[ViewData] => List[ViewData]) = UIData(ƒ(viewStack), props)
+    def updateViewStack(λ: Function[List[ViewData], List[ViewData]]) = UIData(λ(viewStack), props)
+
+    def updateProps(ƒ: HashMap[String, String] => HashMap[String, String]) = UIData(viewStack, ƒ(props))
+    def updateProps(λ: Function[HashMap[String, String], HashMap[String, String]]) = UIData(viewStack, λ(props))
+
+}
