@@ -1,19 +1,22 @@
 package ch.waan.mcddpui.predef
 
-import ch.waan.mcddpui.api.Record
 import ch.waan.mcddpui.api.MutationCommand
+import ch.waan.mcddpui.api.Record
 import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
+import ch.waan.util.function.Id
+import ch.waan.util.function.{ ~> => ~> }
+import ch.waan.util.function.FunctorProvider
 
 /**
  * a record with an infinitely long history that supports an arbitrary number of branching redo paths.
- * 
+ *
  * All operations are synchronised and therefore thread-safe
- * 
+ *
  * @tparam T the data type of the internal data structure
- * 
+ *
  * @constructor creates a new instance
  * @param initial the initial value for the internal data structure
- * 
+ *
  * @author Andreas Waelchli <andreas.waelchli@me.com>
  * @version 1.1 (0.3.0), 2016-03-24
  * @since MCDDPUI 0.3.0
@@ -68,5 +71,11 @@ class InfiniteBranchedRecord[T](initial: T) extends Record[T] {
             redo = theRedo.tail
         }
     }
+
+}
+
+object InfiniteBranchedRecord extends (Id ~> InfiniteBranchedRecord) {
+
+    def apply[T](initial: T) = new InfiniteBranchedRecord(initial)
 
 }

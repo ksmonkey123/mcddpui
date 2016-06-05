@@ -2,6 +2,9 @@ package ch.waan.mcddpui.predef
 
 import ch.waan.mcddpui.api.Record
 import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
+import ch.waan.util.function.Id
+import ch.waan.util.function.{ ~> => ~> }
+import ch.waan.util.function.FunctorProvider
 
 /**
  * a record with an infinitely long history that only supports a single redo path.
@@ -50,5 +53,11 @@ class InfiniteLinearRecord[T](initial: T) extends Record[T] {
     }
 
     override def listRedoPaths = redoStack.map(_._1)
+
+}
+
+object InfiniteLinearRecord extends (Id ~> InfiniteLinearRecord) {
+
+    def apply[A](a: A) = new InfiniteLinearRecord(a)
 
 }
