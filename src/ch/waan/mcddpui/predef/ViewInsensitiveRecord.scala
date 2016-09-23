@@ -6,8 +6,8 @@ import ch.waan.mcddpui.api.Record
 import ch.waan.mcddpui.api.UIUniverse
 import ch.waan.mcddpui.api.function2readCommand
 import ch.waan.mcddpui.api.functionNameTuple2mutationCommand
-import ch.waan.util.function.{ ~> => ~>, Id }
-import ch.waan.util.function.FunctorProvider
+import ch.waan.util.function.Id
+import ch.waan.util.function.{ ~> => ~> }
 
 case class ViewInsensitiveRecord[Model] private (private val backer: Record[ViewInsensitiveRecord.Box[UIUniverse[Model]]]) extends Record[UIUniverse[Model]] {
 
@@ -20,13 +20,10 @@ case class ViewInsensitiveRecord[Model] private (private val backer: Record[View
         // run mutation & then check if it has to be historized
         backer.view((box: ViewInsensitiveRecord.Box[UIUniverse[Model]]) => {
             val next = c(box.item)
-
             if (next.data == box.item.data
                 && next.ui.props == box.item.ui.props) {
-                println("viewstack update")
                 box.item = next
             } else {
-                println("tracked update")
                 backer.update(((box: ViewInsensitiveRecord.Box[UIUniverse[Model]]) => new ViewInsensitiveRecord.Box(next), c.name))
             }
         })

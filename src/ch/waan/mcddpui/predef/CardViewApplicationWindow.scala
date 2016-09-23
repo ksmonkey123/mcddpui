@@ -70,6 +70,8 @@ abstract class CardViewApplicationWindow[T](record: Record[UIUniverse[T]], defau
         val head = u.ui.viewStack.head
         if (head.isInstanceOf[TitledViewData])
             frame.setTitle(head.asInstanceOf[TitledViewData].title)
+        else if (head.isInstanceOf[DynamicallyTitledViewData[_]])
+            frame.setTitle(head.asInstanceOf[DynamicallyTitledViewData[T]].title(u))
         else if (u.ui.props.contains("defaults.window.title"))
             frame.setTitle(u.ui.props("defaults.window.title"))
         else

@@ -4,7 +4,6 @@ import ch.waan.mcddpui.api.Record
 import ch.waan.mcddpui.exceptions.RecordHistoryManipulationException
 import ch.waan.util.function.Id
 import ch.waan.util.function.{ ~> => ~> }
-import ch.waan.util.function.FunctorProvider
 
 /**
  * a record with an infinitely long history that only supports a single redo path.

@@ -1,6 +1,7 @@
 package ch.waan.mcddpui.predef
 
 import ch.waan.mcddpui.api.ViewData
+import ch.waan.mcddpui.api.UIUniverse
 
 /**
  * common base trait for all [[ViewData]] instances with a title.
@@ -17,5 +18,11 @@ import ch.waan.mcddpui.api.ViewData
 trait TitledViewData extends ViewData {
 
     def title: String
+
+}
+
+trait DynamicallyTitledViewData[Model] extends ViewData {
+
+    def title(u: UIUniverse[Model]): String
 
 }
