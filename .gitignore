@@ -2,3 +2,4 @@
 /docs/
 .cache
 scaladoc.sh
+/target/
