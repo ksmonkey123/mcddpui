@@ -3,3 +3,4 @@
 .cache
 scaladoc.sh
 /target/
+.cache-main
